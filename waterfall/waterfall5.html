@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    #main{
+        position: relative;
+    }
+    .box{
+        padding:15px 0 0 15px;
+        float: left;
+    }   
+    .pic{
+        padding:10px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        box-shadow: 0 0 5px #ccc
+    }
+    .pic img{
+        width:165px;
+        height: auto;
+    }
+    </style>
+</head>
+<body>
+        <div id="main">
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/1.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/2.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/3.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/4.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/5.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/6.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/7.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/8.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/9.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="pic">
+                        <img src="img/10.jpg" alt="">
+                    </div>
+                </div>
+                <div class="box">
+                        <div class="pic">
+                            <img src="img/1.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/2.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/3.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/5.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/6.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/7.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/8.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/9.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="pic">
+                            <img src="img/10.jpg" alt="">
+                        </div>
+                    </div>
+            </div>
+            <script>
+                window.onload=function(){
+                    waterfall('main','box');
+                }
+
+                function waterfall(parent,box){
+                    var oParent=document.getElementById(parent);
+                    //将main下所有class为box的元素取出来
+                    var oBoxs=getByClass(oParent,box);
+                       //console.log(oBoxs.length);
+
+                    //计算整个页面显示的列数
+                    var oBoxW=oBoxs[0].offsetWidth;
+                    //console.log(oBoxW);
+                    var cols=Math.floor(document.documentElement.clientWidth/oBoxW);
+
+
+                    //设置main的宽度
+                    oParent.style='width:'+oBoxW*cols+'px;margin:0 auto';
+
+                    //调整第二行页面的位置
+                    var hArr=[];//存储每一列的高度
+                    for(var i=0;i<oBoxs.length;i++){
+                        if(i<cols){
+                            hArr.push(oBoxs[i].offsetHeight)
+                        }else{//执行else代表到了第二行
+                            var minH=Math.min.apply(null,hArr);//计算第一行最小的高度
+                            var index=getMinIndex(hArr,minH);//求最小的高度的索引值
+                            oBoxs[i].style.position='absolute';
+                            oBoxs[i].style.top=minH+'px';
+                            oBoxs[i].style.left=oBoxW*index+'px';
+
+                        }
+                    }
+                    console.log(hArr)
+                };
+                function getByClass(parent,clsName){
+                    var boxArr=[];//用来存储获取到的class为box的元素
+                    var oEle=document.getElementsByTagName('*');
+                    for(var i=0;i<oEle.length;i++){
+                        if(oEle[i].className.indexOf(clsName)!=-1){
+                            boxArr.push(oEle[i]);
+                        }
+                    }
+                    return boxArr;
+                }
+
+                //求最小值索引
+                    function getMinIndex(arr,val){
+                        for(var i=0;i<arr.length;i++){
+                            if(arr[i]==val){
+                                return i
+                            }
+                        }
+
+                    }
+            </script>
+</body>
+</html>
